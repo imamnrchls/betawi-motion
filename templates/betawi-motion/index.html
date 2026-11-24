@@ -182,14 +182,6 @@
     <!-- Stream, gift, wishes -->
     <section class="blue-band cards-band" id="hadiah">
       <span class="gigi edge" data-reveal="gigi" aria-hidden="true"></span>
-      <article class="glass-card" id="stream" data-reveal="rise" hidden>
-        <span class="leaf-corner" aria-hidden="true"></span>
-        <h2 class="script">Live Streaming</h2>
-        <p id="stream-text"></p>
-        <p class="meta" id="stream-meta"></p>
-        <a class="pill small" id="stream-link" target="_blank" rel="noopener" hidden>Klik Disini</a>
-      </article>
-
       <article class="glass-card" id="gift" data-reveal="rise" hidden>
         <span class="leaf-corner" aria-hidden="true"></span>
         <h2 class="script">Wedding Gift</h2>
@@ -198,28 +190,30 @@
         <div class="gift-list" id="gift-list" hidden></div>
       </article>
 
-      <article class="glass-card" id="rsvp" data-reveal="rise" tabindex="-1">
-        <span class="leaf-corner" aria-hidden="true"></span>
-        <h2 class="script">Ucapan &amp; Doa</h2>
-        <p>Berikan ucapan, harapan, dan doa kepada kedua mempelai.</p>
+      <article class="buku-tamu" id="rsvp" data-reveal="rise" tabindex="-1" aria-labelledby="rsvp-title">
+        <span class="gigi bt-gigi" aria-hidden="true"></span>
+        <header class="bt-head">
+          <span class="bt-kembang l" aria-hidden="true"></span>
+          <span class="bt-kembang r" aria-hidden="true"></span>
+          <p class="kicker">Buku Tamu</p>
+          <h2 class="script" id="rsvp-title">Ucapan &amp; Doa</h2>
+          <p class="bt-lede">Titipkan doa dan harapan terbaik untuk kedua mempelai.</p>
+        </header>
         <p class="note" id="demo-note" hidden><strong>Mode contoh.</strong> Ucapan hanya tersimpan di perangkat ini.</p>
-        <p class="count-line"><span id="wish-total">0</span> Ucapan</p>
-        <div class="tally">
-          <div class="yes"><strong id="count-yes">0</strong><span>Hadir</span></div>
-          <div class="no"><strong id="count-no">0</strong><span>Tidak Hadir</span></div>
+        <div class="tally" aria-live="polite">
+          <div class="medal yes"><strong id="count-yes">0</strong><span>Hadir</span></div>
+          <div class="medal total"><strong id="wish-total">0</strong><span>Ucapan</span></div>
+          <div class="medal no"><strong id="count-no">0</strong><span>Berhalangan</span></div>
         </div>
         <form id="reply" novalidate>
-          <label class="sr-only" for="f-name">Nama</label>
-          <input id="f-name" name="guest" placeholder="Nama" autocomplete="name" required maxlength="80">
-          <label class="sr-only" for="f-wish">Ucapan</label>
-          <textarea id="f-wish" name="wish" placeholder="Ucapan" rows="3" required maxlength="500"></textarea>
-          <label class="sr-only" for="f-att">Konfirmasi kehadiran</label>
-          <select id="f-att" name="attendance" required>
-            <option value="" selected disabled>Konfirmasi Kehadiran</option>
-            <option value="yes">Hadir</option>
-            <option value="no">Tidak Hadir</option>
-          </select>
-          <button class="send" type="submit">Kirim</button>
+          <label class="field"><span>Nama</span><input name="guest" autocomplete="name" required maxlength="80" placeholder="Nama Anda"></label>
+          <label class="field"><span>Ucapan &amp; doa</span><textarea name="wish" rows="3" required maxlength="500" placeholder="Tulis ucapan dan doa"></textarea></label>
+          <fieldset class="choice">
+            <legend>Konfirmasi kehadiran</legend>
+            <label class="opt yes"><input type="radio" name="attendance" value="yes" required><span>Insya Allah hadir</span></label>
+            <label class="opt no"><input type="radio" name="attendance" value="no"><span>Berhalangan</span></label>
+          </fieldset>
+          <button class="send" type="submit">Kirim Ucapan</button>
           <p class="status" id="reply-status" role="status"></p>
         </form>
         <ol class="wishes" id="wishes" aria-label="Ucapan tamu"></ol>
