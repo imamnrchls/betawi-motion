@@ -174,12 +174,22 @@ if (Number.isFinite(target) && target > Date.now()) {
 }
 
 /* ---------- story & gallery ---------- */
-for (const chapter of wedding.story || []) {
-  $('chapters').append(el('article', { class: 'chapter', 'data-reveal': 'up' },
+;(wedding.story || []).forEach((chapter, index) => {
+  const card = el('div', { class: 'tl-card' },
+    chapter.date && el('span', { class: 'tl-date', text: chapter.date }),
     el('h3', { text: chapter.title }),
-    chapter.date && el('span', { text: chapter.date }),
-    el('p', { text: chapter.text }),
-  ))
+    chapter.photo && el('img', { class: 'tl-photo', src: asset(chapter.photo), alt: chapter.title, loading: 'lazy' }),
+    el('p', { text: chapter.text }))
+  $('chapters').append(el('li', { class: 'tl-item', 'data-reveal': 'tl', style: `--d:${0.15 + index * 0.12}s` },
+    el('span', { class: 'tl-node', text: String(index + 1).padStart(2, '0'), 'aria-hidden': 'true' }), card))
+})
+if (wedding.story?.length) {
+  $('chapters').append(el('li', { class: 'tl-item tl-end', 'data-reveal': 'tl', style: '--d:.3s' },
+    el('span', { class: 'tl-node', 'aria-hidden': 'true' }),
+    el('div', { class: 'tl-card' },
+      el('span', { class: 'tl-date', text: wedding.date }),
+      el('h3', { text: 'Menuju Hari Bahagia' }),
+      el('p', { text: 'Dengan restu keluarga dan doa Anda, kami melangkah ke babak berikutnya bersama.' }))))
 }
 $('cerita').hidden = !wedding.story?.length
 $('galeri').hidden = !photos.length
