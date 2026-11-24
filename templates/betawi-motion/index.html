@@ -240,17 +240,28 @@
     </section>
 
     <!-- Closing -->
-    <section class="closing" id="penutup">
+    <section class="closing" id="penutup" aria-labelledby="penutup-title">
       <div class="closing-bg" aria-hidden="true">
         <span class="c-forest"></span><span class="c-flowers"></span>
         <span class="kembang l"><i><b></b></i></span><span class="kembang r"><i><b></b></i></span>
         <img class="ondel l" src="./templates/betawi-motion/assets/ondel-merah.webp" alt="" loading="lazy">
         <img class="ondel r" src="./templates/betawi-motion/assets/ondel-putih.webp" alt="" loading="lazy">
       </div>
-      <figure class="arch tall" data-reveal="zoom"><img data-closing-photo alt="" loading="lazy"></figure>
-      <p class="closing-text" id="closing-text" data-reveal="up"></p>
-      <p class="kicker" data-reveal="up" style="--d:.1s">Kami yang berbahagia</p>
-      <p class="serif-names" data-names data-reveal="blur" style="--d:.2s"></p>
+      <span class="gigi edge" data-reveal="gigi" aria-hidden="true"></span>
+      <div class="petals" id="petals" aria-hidden="true"></div>
+      <p class="kicker cl-kicker" data-reveal="up">Atas Doa &amp; Restu Anda</p>
+      <h2 class="script cl-title" id="penutup-title" data-reveal="blur">Terima Kasih</h2>
+      <figure class="cl-portrait" data-reveal="pf">
+        <span class="pf-halo" aria-hidden="true"></span>
+        <div class="pf-arch"><img data-closing-photo alt="" loading="lazy"></div>
+      </figure>
+      <blockquote class="cl-quote" data-reveal="up"><p class="closing-text" id="closing-text"></p></blockquote>
+      <div class="cl-sign" data-reveal="up" style="--d:.1s">
+        <p class="cl-lead">Kami yang berbahagia,</p>
+        <p class="cl-names" data-names></p>
+        <span class="pf-rule" aria-hidden="true"></span>
+        <p class="cl-families" id="closing-families" hidden></p>
+      </div>
     </section>
   </main>
 
