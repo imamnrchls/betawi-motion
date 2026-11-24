@@ -59,6 +59,10 @@ Open http://localhost:8000/. Add `?to=Ibu%20Dewi` for a personalized greeting. T
 - `giftAddress`
 - `closing`
 
+## Deploy to Vercel
+
+The site is built, not served from the repository root. `vercel.json` tells Vercel to run `node build.mjs` and publish `dist/`. To build another event, change `buildCommand` to `node build.mjs <event-slug>`.
+
 ## Animation timing
 
 Every step of the opening is a `--t-*` variable at the top of the Betawi theme block in `templates/betawi-motion/style.css`. Edit those values to retime the scene.
