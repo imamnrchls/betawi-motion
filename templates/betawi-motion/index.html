@@ -34,6 +34,7 @@
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V5a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" fill="currentColor"/></symbol>
   <symbol id="i-gift" viewBox="0 0 24 24"><path d="M20 7h-2.2A3 3 0 0 0 12 4.4 3 3 0 0 0 6.2 7H4a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8h1a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1Zm-5-1a1 1 0 0 1 0 2h-2a2 2 0 0 1 2-2ZM9 6a2 2 0 0 1 2 2H9a1 1 0 0 1 0-2Zm-4 3h6v1H5Zm2 3h4v7H7Zm10 7h-4v-7h4Zm2-9h-6V9h6Z" fill="currentColor"/></symbol>
   <symbol id="i-camera" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></symbol>
@@ -68,12 +69,19 @@
       <span class="gigi"></span>
     </div>
     <div class="cover-copy">
-      <p class="kicker cover-in" style="--d:.2s">Undangan Pernikahan</p>
-      <figure class="arch cover-in" style="--d:.35s"><img data-cover-photo alt=""></figure>
-      <h1 class="serif-names cover-in" style="--d:.6s" data-names></h1>
-      <p class="dear cover-in" style="--d:.75s">Kepada Yth.</p>
-      <p class="guest cover-in" style="--d:.85s" id="guest">Tamu Undangan</p>
-      <button class="pill cover-in" style="--d:1s" id="open-invitation" type="button">Buka Undangan</button>
+      <p class="kicker cv-kicker cover-in" style="--d:.15s">Undangan Pernikahan</p>
+      <figure class="cv-portrait cover-in" style="--d:.3s">
+        <span class="pf-halo" aria-hidden="true"></span>
+        <div class="pf-arch"><img data-cover-photo alt=""></div>
+      </figure>
+      <h1 class="cv-names cover-in" style="--d:.55s" data-names></h1>
+      <p class="cv-date cover-in" style="--d:.7s"><span data-short-date></span></p>
+      <div class="cv-guest cover-in" style="--d:.85s">
+        <p class="dear">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+        <p class="guest" id="guest">Tamu Undangan</p>
+        <p class="cv-note">Mohon maaf bila ada kesalahan penulisan nama dan gelar</p>
+      </div>
+      <button class="cv-open cover-in" style="--d:1s" id="open-invitation" type="button"><svg aria-hidden="true"><use href="#i-mail"/></svg><span>Buka Undangan</span></button>
     </div>
   </header>
 
