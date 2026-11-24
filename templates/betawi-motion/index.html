@@ -39,6 +39,18 @@
 </svg>
 
 <div class="stage">
+  <!-- Desktop: a fixed portrait panel beside the scrolling invitation -->
+  <aside class="desk-aside" aria-hidden="true">
+    <img class="desk-photo" data-aside-photo alt="">
+    <span class="desk-shade"></span>
+    <span class="gigi desk-gigi"></span>
+    <span class="desk-kembang"><b></b></span>
+    <div class="desk-copy">
+      <p class="kicker">The Wedding Of</p>
+      <p class="desk-names" data-names></p>
+      <p class="desk-date" data-date></p>
+    </div>
+  </aside>
   <!-- Cover -->
   <header class="cover" id="sampul">
     <div class="cover-bg" aria-hidden="true">
@@ -115,7 +127,13 @@
           <p class="kicker">Pernikahan Adat Betawi</p>
           <h2 class="script-names" id="hero-names"><span data-name="0"></span> <span class="amp">&amp;</span><br><span data-name="1"></span></h2>
           <p class="hero-date" data-short-date></p>
-          <a class="pill hero-cta" href="#save-date">Save The Date</a>
+          <div class="countdown" id="countdown" role="timer" aria-label="Hitung mundur menuju hari pernikahan" hidden>
+            <div><strong data-unit="days">0</strong><span>Hari</span></div>
+            <div><strong data-unit="hours">0</strong><span>Jam</span></div>
+            <div><strong data-unit="minutes">0</strong><span>Menit</span></div>
+            <div><strong data-unit="seconds">0</strong><span>Detik</span></div>
+          </div>
+          <a class="pill hero-cta" href="#jadwal">Save The Date</a>
         </div>
       </div>
     </section>
@@ -132,18 +150,6 @@
     <section class="couple-section" id="mempelai">
       <p class="lede" id="invite-line" data-reveal="up"></p>
       <div id="couple"></div>
-    </section>
-
-    <!-- Save the date -->
-    <section class="save-date" id="save-date">
-      <figure class="save-photo" data-reveal="zoom-out"><img data-feature-photo alt="" loading="lazy"></figure>
-      <h2 class="script save-title" data-reveal="blur">Save The Date</h2>
-      <div class="countdown" id="countdown" role="timer" aria-label="Hitung mundur menuju hari pernikahan" hidden>
-        <div data-reveal="up" style="--d:0s"><strong data-unit="days">0</strong><span>Hari</span></div>
-        <div data-reveal="up" style="--d:.1s"><strong data-unit="hours">0</strong><span>Jam</span></div>
-        <div data-reveal="up" style="--d:.2s"><strong data-unit="minutes">0</strong><span>Menit</span></div>
-        <div data-reveal="up" style="--d:.3s"><strong data-unit="seconds">0</strong><span>Detik</span></div>
-      </div>
     </section>
 
     <!-- Events -->

@@ -31,6 +31,7 @@ document.title = wedding.names + ' | Undangan Pernikahan'
 document.querySelector('meta[name="description"]').content = 'Undangan pernikahan ' + wedding.names + '.'
 document.querySelectorAll('[data-names]').forEach((node) => { node.textContent = wedding.names })
 document.querySelectorAll('[data-short-date]').forEach((node) => { node.textContent = wedding.shortDate || wedding.date })
+document.querySelectorAll('[data-date]').forEach((node) => { node.textContent = wedding.date })
 const firstNames = wedding.couple.map(({ name }) => name.split(/\s+/)[0])
 document.querySelectorAll('[data-name]').forEach((node) => { node.textContent = firstNames[node.dataset.name] || '' })
 
@@ -63,9 +64,9 @@ const setPhoto = (selector, photo) => document.querySelectorAll(selector).forEac
   img.alt = photo.alt
 })
 setPhoto('[data-cover-photo]', wedding.coverPhoto ? { file: wedding.coverPhoto, alt: wedding.names } : photoAt(0))
-setPhoto('[data-feature-photo]', photoAt(0))
 setPhoto('[data-story-photo]', photoAt(1))
 setPhoto('[data-closing-photo]', photoAt(0))
+setPhoto('[data-aside-photo]', photoAt(0))
 
 if (wedding.quote) {
   $('quote-text').textContent = wedding.quote.text
