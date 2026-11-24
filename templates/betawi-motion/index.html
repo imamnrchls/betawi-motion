@@ -174,9 +174,19 @@
     </section>
 
     <!-- Gallery -->
-    <section class="gallery-section" id="galeri" hidden>
-      <h2 class="script" data-reveal="blur">Galeri Foto</h2>
-      <div class="gallery" id="photos"></div>
+    <section class="gallery-section" id="galeri" hidden aria-labelledby="galeri-title">
+      <p class="kicker" data-reveal="up">Jendela Kenangan</p>
+      <h2 class="script" id="galeri-title" data-reveal="blur">Galeri Foto</h2>
+      <div class="jendela" data-reveal="zoom" aria-roledescription="carousel" aria-label="Foto pasangan">
+        <div class="jendela-frame">
+          <div class="slides" id="slides" aria-live="polite"></div>
+          <button class="jendela-nav prev" id="slide-prev" type="button" aria-label="Foto sebelumnya">‹</button>
+          <button class="jendela-nav next" id="slide-next" type="button" aria-label="Foto berikutnya">›</button>
+        </div>
+        <p class="jendela-count" aria-hidden="true"><b id="slide-pos">01</b> / <span id="slide-total">06</span></p>
+      </div>
+      <div class="polaroids" id="photos"></div>
+      <p class="gallery-hint">Geser untuk melihat foto lain, ketuk untuk memperbesar.</p>
     </section>
 
     <!-- Stream, gift, wishes -->
