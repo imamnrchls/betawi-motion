@@ -79,24 +79,32 @@ $('closing-text').textContent = wedding.closing || wedding.welcome
 
 wedding.couple.forEach((partner, index) => {
   const bride = index === 0
-  const figure = el('figure', { class: 'oval', 'data-reveal': bride ? 'right' : 'left' })
-  if (partner.portrait) figure.append(el('img', { class: 'photo', src: asset(partner.portrait), alt: partner.name, loading: 'lazy' }))
-  figure.append(
-    el('img', { class: 'frame', src: own('frame.webp'), alt: '' }),
-    el('img', { class: 'bouquet', src: own('bouquet.webp'), alt: '' }),
+  const [first] = partner.name.trim().split(/\s+/)
+  const portrait = el('div', { class: 'pf-portrait' },
+    el('span', { class: 'pf-halo', 'aria-hidden': 'true' }),
+    el('div', { class: 'pf-arch' }, partner.portrait && el('img', { src: asset(partner.portrait), alt: partner.name, loading: 'lazy' })),
+    el('img', { class: 'pf-bouquet', src: own('bouquet.webp'), alt: '', 'aria-hidden': 'true' }),
   )
-  const text = el('div', { class: 'partner-text', 'data-reveal': 'up', style: '--d:.25s' },
-    el('h3', { text: partner.name }),
-    partner.family && el('p', { text: partner.family }),
-  )
+  const name = el('h3', { class: 'pf-name' },
+    el('span', { class: 'pf-first', text: first, 'aria-hidden': 'true' }),
+    el('span', { class: 'pf-full', text: partner.name }))
+  const family = el('p', { class: 'pf-family' })
+  const split = partner.family?.match(/^(.*?\bdari)\s+(.+)$/i)
+  if (split) family.append(el('span', { text: split[1] }), el('strong', { text: split[2] }))
+  else if (partner.family) family.append(el('strong', { text: partner.family }))
+  const article = el('article', { class: 'profile ' + (bride ? 'bride' : 'groom'), 'data-reveal': 'pf' },
+    el('p', { class: 'kicker pf-role', text: bride ? 'Mempelai Wanita' : 'Mempelai Pria' }),
+    portrait, name, el('span', { class: 'pf-rule', 'aria-hidden': 'true' }), family)
   const handle = partner.instagram?.replace(/^@/, '').trim()
   if (handle && /^[\w.]{1,30}$/.test(handle)) {
     const link = el('a', { class: 'social', href: 'https://www.instagram.com/' + handle + '/', target: '_blank', rel: 'noopener', 'aria-label': 'Instagram ' + partner.name })
-    link.append(icon('camera', ''))
-    text.append(link)
+    link.append(icon('camera', ''), el('span', { text: '@' + handle }))
+    article.append(link)
   }
-  $('couple').append(el('article', { class: 'partner ' + (bride ? 'bride' : 'groom') }, figure, text))
-  if (bride && wedding.couple.length > 1) $('couple').append(el('p', { class: 'amp-script', 'data-reveal': 'zoom', text: '&', 'aria-hidden': 'true' }))
+  $('couple').append(article)
+  if (bride && wedding.couple.length > 1) {
+    $('couple').append(el('div', { class: 'pf-amp', 'data-reveal': 'zoom', 'aria-hidden': 'true' }, el('span', { text: '&' })))
+  }
 })
 
 /* ---------- events ---------- */
