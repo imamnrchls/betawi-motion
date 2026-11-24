@@ -281,40 +281,50 @@ if (wedding.gift || accounts.length || wedding.giftAddress) {
   $('gift').hidden = false
   $('gift-text').textContent = wedding.gift || 'Bagi Bapak/Ibu/Saudara/i yang ingin mengirimkan hadiah, dapat melalui tautan di bawah ini.'
   const list = $('gift-list')
-  accounts.forEach((account, index) => {
-    const copy = el('button', { class: 'copy', type: 'button', text: 'Salin', 'aria-label': 'Salin nomor ' + account.bank })
-    copy.addEventListener('click', async () => {
-      const digits = account.number.replace(/\s+/g, '')
+  const copyButton = (value, label) => {
+    const button = el('button', { class: 'gift-copy', type: 'button', 'aria-label': label })
+    const text = el('span', { text: 'Salin' })
+    button.append(icon('copy', ''), text)
+    button.addEventListener('click', async () => {
       try {
-        await navigator.clipboard.writeText(digits)
-        copy.textContent = 'Tersalin'
-        copy.classList.add('done')
+        await navigator.clipboard.writeText(value)
+        text.textContent = 'Tersalin'
+        button.classList.add('done')
       } catch {
-        copy.textContent = digits
+        text.textContent = value
       }
-      setTimeout(() => { copy.textContent = 'Salin'; copy.classList.remove('done') }, 2200)
+      setTimeout(() => { text.textContent = 'Salin'; button.classList.remove('done') }, 2200)
     })
-    list.append(el('div', { class: 'bank-card', style: `--i:${index}` },
-      el('span', { class: 'bank', text: account.bank }),
-      el('span', { class: 'chip', 'aria-hidden': 'true' }),
-      el('span', { class: 'number', text: account.number }),
-      el('span', { class: 'holder', text: account.holder }),
-      copy,
+    return button
+  }
+  accounts.forEach((account, index) => {
+    list.append(el('div', { class: 'gift-bank ' + (index % 2 ? 'merah' : 'hijau'), style: `--i:${index}` },
+      el('span', { class: 'gb-trim', 'aria-hidden': 'true' }),
+      el('span', { class: 'gb-name', text: account.bank }),
+      el('span', { class: 'gb-chip', 'aria-hidden': 'true' }),
+      el('span', { class: 'gb-number', text: account.number }),
+      el('span', { class: 'gb-holder', text: 'a.n. ' + account.holder }),
+      copyButton(account.number.replace(/\s+/g, ''), 'Salin nomor ' + account.bank),
     ))
   })
   if (wedding.giftAddress) {
-    const card = el('div', { class: 'address-card', style: `--i:${accounts.length}` })
-    card.append(icon('gift', ''), el('strong', { text: 'Kirim Hadiah' }),
-      el('p', { text: 'Nama penerima: ' + wedding.giftAddress.recipient }),
-      el('p', { text: wedding.giftAddress.address }))
+    const { recipient, address } = wedding.giftAddress
+    const card = el('div', { class: 'gift-address', style: `--i:${accounts.length}` })
+    card.append(el('span', { class: 'ga-icon' }, icon('gift', '')), el('strong', { text: 'Kirim Hadiah' }),
+      el('p', { class: 'ga-to', text: 'Penerima: ' + recipient }),
+      el('p', { text: address }),
+      copyButton(recipient + ', ' + address, 'Salin alamat pengiriman hadiah'))
     list.append(card)
   }
   const toggle = $('gift-toggle')
   toggle.hidden = !list.children.length
   toggle.addEventListener('click', () => {
     const open = list.hidden
-    list.hidden = !open
+    $('gift').classList.toggle('open', open)
     toggle.setAttribute('aria-expanded', String(open))
+    toggle.querySelector('.seal-label').textContent = open ? 'Tutup Amplop' : 'Buka Amplop'
+    if (open) setTimeout(() => { list.hidden = false }, reducedMotion ? 0 : 650)
+    else list.hidden = true
   })
 }
 
