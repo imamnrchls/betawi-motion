@@ -350,7 +350,7 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 /* ---------- gigi balang trim ---------- */
 .gigi {
   position: absolute; z-index: 6; left: 0; right: 0; top: 0; height: 30px;
-  background: url('./assets/gigi-balang.svg') 0 0 / 32px 30px repeat-x;
+  background: url('./assets/gigi-balang.webp') 0 0 / 42px 30px repeat-x;
   filter: drop-shadow(0 2px 2px rgba(60, 70, 40, .2));
   pointer-events: none;
 }
@@ -378,9 +378,9 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 .layer i, .grow i, .bloom i, .hang i, .kembang i { display: block; width: 100%; height: 100%; background-repeat: no-repeat; background-size: 100% 100%; }
 .mount { left: 0; right: 0; bottom: calc(var(--w) * .68); aspect-ratio: 480 / 420; }
 .mount i { background-image: url('./assets/mountain.webp'); }
-.hills { left: 0; right: 0; bottom: calc(var(--w) * .6); aspect-ratio: 480 / 300; }
+.hills { left: 0; right: 0; bottom: calc(var(--w) * .3); aspect-ratio: 480 / 300; }
 .hills i { background-image: url('./assets/hills.webp'); }
-.house { left: 0; right: 0; bottom: calc(var(--w) * .2); aspect-ratio: 480 / 340; }
+.house { left: 0; right: 0; bottom: calc(var(--w) * .32); aspect-ratio: 480 / 340; }
 .house i { background-image: url('./assets/house.webp'); }
 .meadow { left: -4%; right: -4%; bottom: calc(var(--w) * -.04); aspect-ratio: 480 / 260; }
 .meadow i { background-image: url('./assets/meadow.webp'); }
