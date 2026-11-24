@@ -157,12 +157,6 @@ body.opened .hero-inner { animation: title-in var(--t-title) var(--t-title-at) c
 .amp-script { font: 2.8rem/1 var(--script); color: var(--navy); text-align: center; margin: 1.2rem 0 .6rem; }
 
 /* ---------- save the date ---------- */
-.save-date { position: relative; overflow: hidden; background: var(--blue); }
-.save-photo { margin: 0; height: min(118vw, 560px); overflow: hidden; }
-.save-photo img { width: 100%; height: 100%; object-fit: cover; }
-.save-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(255, 255, 255, .1), rgba(30, 45, 70, .05) 50%, rgba(30, 45, 70, .35)); }
-.save-title { position: absolute; left: 0; right: 0; top: 46%; color: #fff; font-size: 3.6rem; text-shadow: 0 2px 18px rgba(30, 45, 70, .5); }
-.countdown { position: absolute; left: 14px; right: 14px; top: calc(46% + 4.6rem); display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .countdown div { display: grid; justify-items: center; padding: .55rem .2rem; border-radius: 10px; background: rgba(255, 255, 255, .93); box-shadow: 0 6px 16px rgba(30, 45, 70, .18); }
 .countdown strong { font: 500 1.35rem/1.1 var(--sans); color: var(--navy); font-variant-numeric: tabular-nums; }
 .countdown span { font: italic 400 .8rem/1.2 var(--body); color: var(--muted); }
@@ -441,6 +435,15 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 .script-names .ch { display: inline-block; opacity: 0; white-space: pre; }
 .hero-date { color: var(--navy); opacity: 0; }
 .hero-cta { opacity: 0; }
+/* Countdown under the couple's names */
+.hero .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: min(100%, 20rem); margin: -.2rem auto 1.1rem; }
+.hero .countdown[hidden] { display: none; }
+.hero .countdown div { display: grid; justify-items: center; padding: .45rem .15rem; border-radius: 10px; opacity: 0;
+  background: rgba(255, 253, 248, .9); border: 1px solid rgba(201, 95, 127, .25); box-shadow: 0 6px 16px rgba(60, 40, 30, .14); }
+.hero .countdown div:nth-child(1) { --n: 0; } .hero .countdown div:nth-child(2) { --n: 1; }
+.hero .countdown div:nth-child(3) { --n: 2; } .hero .countdown div:nth-child(4) { --n: 3; }
+.hero .countdown strong { font: 500 1.15rem/1.1 var(--sans); color: var(--navy); font-variant-numeric: tabular-nums; }
+.hero .countdown span { font: italic 400 .74rem/1.2 var(--body); color: var(--muted); }
 
 /* ---------- opening timeline ---------- */
 body.opened .dolly { animation: b-dolly var(--t-dolly) var(--t-dolly-at) cubic-bezier(.4, .05, .2, 1) both; }
@@ -464,7 +467,8 @@ body.opened .mist { animation: fade-in var(--t-mist) var(--t-mist-at) ease-out b
 body.opened .hero .kicker { animation: letter-in .6s var(--t-kicker-at) var(--ease) both; }
 body.opened .script-names .ch { animation: letter-in .65s calc(var(--t-names-at) + var(--i) * var(--t-letter)) var(--ease) both; }
 body.opened .hero-date { animation: letter-in .6s var(--t-cta-at) var(--ease) both; }
-body.opened .hero-cta { animation: letter-in .6s calc(var(--t-cta-at) + .15s) var(--ease) both; }
+body.opened .hero-cta { animation: letter-in .6s calc(var(--t-cta-at) + .55s) var(--ease) both; }
+body.opened .hero .countdown div { animation: letter-in .55s calc(var(--t-cta-at) + .12s + var(--n) * .08s) var(--ease) both; }
 body.opened .hero-inner { animation: none; }
 .hero .shimmer { animation: none; }
 
@@ -476,10 +480,6 @@ body.opened .hero-inner { animation: none; }
 .partner h3 { color: var(--gold); }
 .amp-script { color: var(--blue-deep); }
 .social { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); }
-.save-date { background: var(--blue-deep); }
-.save-photo::after { background: linear-gradient(rgba(30, 26, 20, 0) 25%, rgba(30, 26, 20, .38) 50%, rgba(30, 26, 20, .55) 75%, rgba(30, 26, 20, .35)); }
-/* Keep the script title light over the photo; the theme's .script colour would otherwise turn it red. */
-.save-title { color: #fffdf8; text-shadow: 0 1px 3px rgba(30, 26, 20, .6), 0 4px 24px rgba(30, 26, 20, .55); }
 .countdown strong { color: var(--navy); }
 .blue-band { padding-top: 3.2rem; background: linear-gradient(rgba(34, 96, 68, .92), rgba(24, 75, 57, .96)), url('./assets/backdrop.webp') center / cover; }
 .band-lede { color: #fbf7f0; }
@@ -542,6 +542,6 @@ body.opened .hero-inner { animation: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .gigi.edge:not(.in) { transform: none; }
-  .robin, .awan svg, .mist, .hero .ondel, .hero .kicker, .script-names .ch, .hero-date, .hero-cta { opacity: 1; }
+  .robin, .awan svg, .mist, .hero .ondel, .hero .kicker, .script-names .ch, .hero-date, .hero-cta, .hero .countdown div { opacity: 1; }
   .robins, .birds { display: none; }
 }
