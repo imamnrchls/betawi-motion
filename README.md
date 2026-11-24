@@ -9,7 +9,7 @@ The page opens on a cover with an arch portrait. Tapping **Buka Undangan** plays
 - the banana and blossom trees grow
 - the gigi balang trim drops in from the top
 - the hanging blossoms swing
-- robins hover and cloud motifs drift
+- Javan kingfishers flap their wings and cloud motifs drift
 - a mist gathers, and the couple's names appear letter by letter
 
 Scroll-revealed sections follow, covering:

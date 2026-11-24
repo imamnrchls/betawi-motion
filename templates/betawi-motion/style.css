@@ -98,8 +98,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .dolly { transform-origin: 50% 100%; }
 
 .laces svg { position: absolute; left: var(--x); top: var(--y); width: var(--s); height: var(--s); color: #fff; opacity: 0; filter: drop-shadow(0 0 4px rgba(170, 190, 215, .8)); }
-.birds svg { position: absolute; left: 0; top: var(--top); width: var(--size); height: calc(var(--size) / 2); color: #2f3a4a; opacity: 0; }
-.birds use { transform-origin: 50% 50%; animation: flap .42s ease-in-out infinite alternate; }
+.distant-birds span { position: absolute; left: 0; top: var(--top); width: var(--size); aspect-ratio: 2.5; opacity: 0; }
+.distant-birds span::before { content: ''; display: block; height: 100%; background: url('./assets/swift.webp') center / contain no-repeat; }
 
 .hero-copy { position: absolute; left: 0; right: 0; top: 27%; display: grid; justify-items: center; text-align: center; padding: 0 1.25rem; }
 .script-names { font-size: clamp(3.6rem, 17vw, 5rem); margin: .55rem 0 .7rem; text-shadow: 0 2px 14px rgba(255, 255, 255, .8); }
@@ -110,7 +110,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 body.opened .dolly { animation: dolly var(--t-dolly) var(--t-dolly-at) cubic-bezier(.55, 0, .3, 1) both; }
 body.opened .bloom i { animation: bloom-rise var(--t-bloom) var(--t-bloom-at) var(--ease) both, breathe 7s calc(var(--t-bloom-at) + var(--t-bloom)) ease-in-out infinite alternate; }
 body.opened .laces svg { animation: lace-in var(--t-lace) calc(var(--t-lace-at) + var(--d)) ease-out both, twinkle 3.6s calc(var(--t-lace-at) + var(--t-lace) + var(--d)) ease-in-out infinite; }
-body.opened .birds svg { animation: fly var(--dur) var(--delay) linear infinite; }
+body.opened .distant-birds span { animation: fly var(--dur) var(--delay) linear infinite; }
+body.opened .distant-birds span::before { animation: flap .42s ease-in-out infinite alternate; }
 body.opened .hero-inner { animation: title-in var(--t-title) var(--t-title-at) cubic-bezier(.4, .1, .3, 1) both; }
 
 /* ---------- scroll reveals ---------- */
@@ -289,7 +290,7 @@ body.opened .hero-inner { animation: title-in var(--t-title) var(--t-title-at) c
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
-  .birds svg, .laces svg { display: none; }
+  .laces svg { display: none; }
   [data-reveal] { opacity: 1; transform: none; filter: none; }
 }
 
@@ -316,7 +317,7 @@ body.opened .hero-inner { animation: title-in var(--t-title) var(--t-title-at) c
   --t-cover: .7s;
   --t-dolly-at: 0s;     --t-dolly: 2.4s;
   --t-awan-at: .8s;
-  --t-robin-at: 1s;     --t-robin: 1.2s;
+  --t-bird-at: 1s;      --t-bird: 1.2s;
   --t-bloom-at: 2s;     --t-bloom: .8s;
   --t-kembang-at: 2.3s; --t-kembang: .6s;
   --t-tree-at: 2.35s;   --t-tree: .6s;
@@ -427,12 +428,19 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 
 .awan svg { position: absolute; left: var(--x); top: var(--y); width: var(--w); aspect-ratio: 120 / 50; opacity: 0; }
 .laces svg { color: #fff; filter: drop-shadow(0 0 3px rgba(190, 170, 160, .8)); }
-.birds svg { color: #6b5a4a; }
 .mist { position: absolute; left: -10%; right: -10%; top: 14%; height: 52%; background: radial-gradient(closest-side, rgba(255, 253, 248, .94), rgba(255, 253, 248, .7) 55%, rgba(255, 253, 248, 0)); opacity: 0; pointer-events: none; }
 
-.robins { position: absolute; inset: 0; pointer-events: none; }
-.robin { position: absolute; left: var(--x); top: var(--y); width: var(--w); overflow: visible; opacity: 0; }
-.r-wing { transform-box: fill-box; transform-origin: 20% 100%; }
+.kingfishers { position: absolute; inset: 0; pointer-events: none; }
+.kingfisher {
+  position: absolute; left: var(--x); top: var(--y); width: var(--w); aspect-ratio: 2.4;
+  opacity: 0; background: url('./assets/kingfisher.webp') center / contain no-repeat;
+}
+.kingfisher.left-facing { scale: -1 1; }
+.kingfisher::before {
+  content: ''; position: absolute; left: 6%; bottom: 28%; width: 47%; aspect-ratio: .85;
+  background: url('./assets/kingfisher-wing.webp') center / contain no-repeat;
+  transform-origin: 96% 92%;
+}
 
 .hero-copy { top: 21%; z-index: 4; }
 .hero-inner { opacity: 1; }
@@ -446,8 +454,8 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 body.opened .dolly { animation: b-dolly var(--t-dolly) var(--t-dolly-at) cubic-bezier(.4, .05, .2, 1) both; }
 body.opened .mount i { animation: b-drift var(--t-dolly) var(--t-dolly-at) cubic-bezier(.4, .05, .2, 1) both; }
 body.opened .awan svg { animation: fade-in 1.2s var(--t-awan-at) ease-out both, awan-drift var(--dur) var(--t-awan-at) ease-in-out infinite alternate; }
-body.opened .robin { animation: robin-in var(--t-robin) calc(var(--t-robin-at) + var(--d)) cubic-bezier(.2, .7, .3, 1) both, hover 2.6s calc(var(--t-robin-at) + var(--t-robin) + var(--d)) ease-in-out infinite alternate; }
-body.opened .r-wing { animation: wing .16s linear infinite alternate; }
+body.opened .kingfisher { animation: bird-in var(--t-bird) calc(var(--t-bird-at) + var(--d)) cubic-bezier(.2, .7, .3, 1) both, hover 2.6s calc(var(--t-bird-at) + var(--t-bird) + var(--d)) ease-in-out infinite alternate; }
+body.opened .kingfisher::before { animation: wing .16s ease-in-out infinite alternate; }
 body.opened .bloom i { animation: bloom-rise var(--t-bloom) var(--t-bloom-at) var(--ease) both, breathe 7s calc(var(--t-bloom-at) + var(--t-bloom)) ease-in-out infinite alternate; }
 body.opened .hero .ondel { animation: rise-in .85s 2.7s var(--ease) both, swing 4s 3.55s ease-in-out infinite alternate; }
 body.opened .hero .ondel.r { animation-delay: 2.95s, 3.8s; animation-direction: normal, alternate-reverse; }
@@ -529,9 +537,9 @@ body.opened .hero-inner { animation: none; }
 @keyframes b-drift { from { transform: translateY(-14%) scale(1.1); } to { transform: none; } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes awan-drift { from { translate: -10px 0; } to { translate: 26px 0; } }
-@keyframes robin-in { from { opacity: 0; transform: translate(var(--from), -40px) rotate(-8deg); } 30% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes bird-in { from { opacity: 0; translate: var(--from) -40px; rotate: -8deg; } 30% { opacity: 1; } to { opacity: 1; translate: 0; rotate: 0deg; } }
 @keyframes hover { from { translate: 0 0; } to { translate: 6px -10px; } }
-@keyframes wing { from { transform: rotate(0deg) scaleY(1); } to { transform: rotate(-35deg) scaleY(-.7); } }
+@keyframes wing { from { transform: rotate(8deg) scaleY(1); } to { transform: rotate(-16deg) scaleY(-.8); } }
 @keyframes kembang-pop { from { opacity: 0; transform: translateY(30%) scale(.2); } 60% { opacity: 1; } to { opacity: 1; transform: none; } }
 @keyframes spin-in { from { transform: rotate(-200deg) scale(.3); } to { transform: none; } }
 @keyframes tree-grow { from { opacity: 0; transform: translateY(12%) scale(.35); } 50% { opacity: 1; } to { opacity: 1; transform: none; } }
@@ -542,6 +550,6 @@ body.opened .hero-inner { animation: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .gigi.edge:not(.in) { transform: none; }
-  .robin, .awan svg, .mist, .hero .ondel, .hero .kicker, .script-names .ch, .hero-date, .hero-cta { opacity: 1; }
-  .robins, .birds { display: none; }
+  .awan svg, .mist, .hero .ondel, .hero .kicker, .script-names .ch, .hero-date, .hero-cta { opacity: 1; }
+  .kingfishers, .distant-birds { display: none; }
 }
