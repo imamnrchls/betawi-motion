@@ -482,7 +482,7 @@ body.opened .hero-inner { animation: none; }
 
 /* ---------- sections ---------- */
 .with-love { position: relative; padding-top: 3rem; background: linear-gradient(#f3ede4, var(--paper) 40%); }
-.with-love .castle { width: 86%; border-radius: 50%; }
+.with-love .castle { width: 92%; }
 .couple-section { background: linear-gradient(var(--paper), #f6ece6); }
 .couple-section::after { background-image: url('./assets/hills.webp'); opacity: .4; }
 .partner h3 { color: var(--gold); }
