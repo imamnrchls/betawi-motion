@@ -477,7 +477,9 @@ body.opened .hero-inner { animation: none; }
 .amp-script { color: var(--blue-deep); }
 .social { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); }
 .save-date { background: var(--blue-deep); }
-.save-photo::after { background: linear-gradient(rgba(255, 255, 255, .05), rgba(40, 55, 30, .05) 50%, rgba(40, 55, 30, .45)); }
+.save-photo::after { background: linear-gradient(rgba(30, 26, 20, 0) 25%, rgba(30, 26, 20, .38) 50%, rgba(30, 26, 20, .55) 75%, rgba(30, 26, 20, .35)); }
+/* Keep the script title light over the photo; the theme's .script colour would otherwise turn it red. */
+.save-title { color: #fffdf8; text-shadow: 0 1px 3px rgba(30, 26, 20, .6), 0 4px 24px rgba(30, 26, 20, .55); }
 .countdown strong { color: var(--navy); }
 .blue-band { padding-top: 3.2rem; background: linear-gradient(rgba(34, 96, 68, .92), rgba(24, 75, 57, .96)), url('./assets/backdrop.webp') center / cover; }
 .band-lede { color: #fbf7f0; }
