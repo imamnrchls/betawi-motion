@@ -191,18 +191,7 @@ viewer.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowRight') show(current + 1)
 })
 
-/* ---------- stream & gift ---------- */
-if (wedding.stream || wedding.streamUrl) {
-  $('stream').hidden = false
-  $('stream-text').textContent = wedding.stream || 'Saksikan pernikahan kami secara langsung melalui tautan berikut.'
-  const first = wedding.events[0]
-  $('stream-meta').textContent = first ? first.date + ' · ' + first.time : ''
-  if (/^https:\/\//.test(wedding.streamUrl || '')) {
-    $('stream-link').href = wedding.streamUrl
-    $('stream-link').hidden = false
-  }
-}
-
+/* ---------- gift ---------- */
 const accounts = wedding.giftAccounts || []
 if (wedding.gift || accounts.length || wedding.giftAddress) {
   $('gift').hidden = false
@@ -271,11 +260,16 @@ function renderWishes() {
   $('count-no').textContent = wishes.filter((w) => w.attendance === 'no').length
   const list = $('wishes')
   list.replaceChildren()
-  if (!wishes.length) list.append(el('li', { class: 'empty', text: 'Belum ada ucapan. Jadilah yang pertama.' }))
+  if (!wishes.length) list.append(el('li', { class: 'empty', text: 'Belum ada ucapan. Jadilah yang pertama menitipkan doa.' }))
   for (const wish of wishes) {
-    const who = el('span', { class: 'who' }, wish.name)
-    who.append(icon('check', ''))
-    list.append(el('li', {}, who, el('p', { text: wish.wish }), el('time', { dateTime: new Date(wish.at).toISOString(), text: ago(wish.at) })))
+    const tone = ['merah', 'hijau', 'emas'][[...wish.name].reduce((sum, char) => sum + char.codePointAt(0), 0) % 3]
+    const attending = wish.attendance === 'yes'
+    const head = el('div', { class: 'wish-head' },
+      el('strong', { text: wish.name }),
+      el('span', { class: 'badge ' + (attending ? 'yes' : 'no'), text: attending ? 'Hadir' : 'Berhalangan' }))
+    list.append(el('li', {},
+      el('span', { class: 'avatar ' + tone, text: Array.from(wish.name.trim())[0]?.toUpperCase() || '?', 'aria-hidden': 'true' }),
+      el('div', { class: 'bubble' }, head, el('p', { text: wish.wish }), el('time', { dateTime: new Date(wish.at).toISOString(), text: ago(wish.at) }))))
   }
 }
 
@@ -305,7 +299,6 @@ if (wedding.demo) {
 } else {
   form.hidden = true
   document.querySelector('#rsvp .tally').hidden = true
-  document.querySelector('#rsvp .count-line').hidden = true
   $('wishes').hidden = true
   const email = wedding.contactEmail?.trim()
   if (email && /^[^\s@?&#]+@[^\s@?&#]+\.[^\s@?&#]+$/.test(email)) {

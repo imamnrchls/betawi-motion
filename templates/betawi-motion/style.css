@@ -585,3 +585,84 @@ body.opened .hero-inner { animation: none; }
 @keyframes desk-drift { from { transform: scale(1.02) translateX(0); } to { transform: scale(1.06) translateX(-1.5%); } }
 @keyframes cover-out-desk { 0% { transform: none; opacity: 1; } 35% { opacity: 1; } 100% { transform: translateY(-70%); opacity: 0; } }
 
+/* ---------- keep photos and decorations from being cut or covering text ---------- */
+.gallery { display: block; columns: 2; column-gap: 10px; }
+.gallery a { display: block; break-inside: avoid; margin: 0 0 10px; }
+.gallery img { height: auto; }
+.story-photo { aspect-ratio: auto; }
+.story-photo img { height: auto; }
+.leaf-corner { width: 92px; top: -16px; right: -26px; opacity: .45; }
+.glass-card::after { width: 96px; bottom: -40px; left: -36px; opacity: .22; }
+.glass-card > .script { padding-inline: 1.6rem; }
+.leaf-edge { width: 130px; opacity: .22; }
+.leaf-edge.l { left: -96px; }
+.leaf-edge.r { right: -96px; }
+
+/* ---------- Buku tamu: Ucapan & Doa ---------- */
+.buku-tamu {
+  position: relative; overflow: hidden; outline: none;
+  padding: 3.2rem 1.2rem 1.6rem; border-radius: 18px; text-align: center;
+  background: linear-gradient(rgba(255, 253, 248, .94), rgba(251, 247, 240, .97)), url('./assets/sky.webp') center / cover;
+  border: 1px solid var(--gold-soft);
+  box-shadow: inset 0 0 0 5px var(--cream), inset 0 0 0 6px rgba(198, 154, 82, .55), 0 18px 40px rgba(10, 30, 20, .28);
+}
+.bt-gigi { height: 26px; background-size: 28px 26px; }
+.bt-head { position: relative; padding: 0 2.4rem; }
+.bt-head .kicker { color: var(--blue-deep); letter-spacing: .3em; }
+.bt-head .script { margin: .2rem 0 .5rem; font-size: clamp(2.3rem, 10vw, 2.7rem); padding: 0; white-space: nowrap; }
+.bt-lede { font-size: .98rem; color: var(--ink); }
+.bt-kembang { position: absolute; top: 1.3rem; width: 44px; aspect-ratio: 1; background: url('./assets/kembang.webp') center / contain no-repeat; animation: spin 26s linear infinite; }
+.bt-kembang.l { left: -.6rem; }
+.bt-kembang.r { right: -.6rem; animation-direction: reverse; }
+.buku-tamu .note { margin-top: .6rem; }
+
+.buku-tamu .tally { display: flex; justify-content: center; gap: .9rem; width: auto; margin: 1.4rem 0 1.6rem; }
+.buku-tamu .tally .medal { display: flex; flex-direction: column; align-items: center; gap: .45rem; width: 84px; padding: 0; border: 0; border-radius: 0; background: none; }
+.buku-tamu .tally .medal strong { display: grid; place-items: center; width: 64px; aspect-ratio: 1; border-radius: 50%; border: 2px solid var(--gold-soft);
+  font: 600 1.35rem/1 var(--sans); font-variant-numeric: lining-nums tabular-nums;
+  box-shadow: inset 0 0 0 3px var(--cream), inset 0 0 0 4px rgba(198, 154, 82, .6), 0 6px 14px rgba(40, 30, 20, .12); }
+.buku-tamu .tally .medal span { font: 600 .6rem/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+.buku-tamu .tally .medal.yes { color: var(--navy); background: none; }
+.buku-tamu .tally .medal.yes strong { background: #e5f0e8; }
+.buku-tamu .tally .medal.no { color: var(--gold); background: none; }
+.buku-tamu .tally .medal.no strong { background: #f7e4df; }
+.buku-tamu .tally .medal.total { color: #6b4a16; background: none; }
+.buku-tamu .tally .medal.total strong { width: 74px; background: linear-gradient(160deg, #f7e9c8, #ecd39c); }
+.buku-tamu #reply { gap: .9rem; }
+.field { display: grid; gap: .3rem; }
+.field > span, .choice legend { font: 600 .68rem/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--blue-deep); }
+.buku-tamu #reply input, .buku-tamu #reply textarea {
+  padding: .75rem .9rem; border: 0; border-bottom: 1.5px solid var(--gold-soft); border-radius: 10px 10px 2px 2px;
+  background: rgba(255, 253, 248, .95); box-shadow: inset 0 0 0 1px var(--line); font-size: 1rem; transition: border-color .2s, box-shadow .2s;
+}
+.buku-tamu #reply input:focus, .buku-tamu #reply textarea:focus { outline: none; border-bottom-color: var(--navy); box-shadow: inset 0 0 0 1px var(--blue), 0 0 0 3px rgba(54, 129, 93, .15); }
+.choice { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: 0; padding: 0; border: 0; }
+.choice legend { margin-bottom: .35rem; padding: 0; }
+.opt { position: relative; cursor: pointer; }
+.opt input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.opt span { display: grid; place-items: center; min-height: 44px; padding: .5rem; border-radius: 999px; border: 1px solid var(--gold-soft); background: var(--cream); font: 500 .82rem/1.2 var(--sans); color: var(--ink); transition: background .2s, color .2s, border-color .2s; }
+.opt.yes input:checked + span { background: var(--navy); color: #fffdf8; border-color: var(--navy); }
+.opt.no input:checked + span { background: var(--gold); color: #fffdf8; border-color: var(--gold); }
+.opt input:focus-visible + span { outline: 2px solid var(--gold-soft); outline-offset: 2px; }
+.buku-tamu .send { min-height: 48px; border-radius: 999px; border: 1px solid var(--gold-soft); font: 600 .78rem/1 var(--sans); letter-spacing: .18em; text-transform: uppercase;
+  background: linear-gradient(180deg, #24654a, var(--navy)); box-shadow: 0 8px 18px rgba(24, 75, 57, .3), inset 0 1px 0 rgba(255, 255, 255, .2); }
+.buku-tamu .status { text-align: center; color: var(--navy); }
+
+.buku-tamu .wishes { margin-top: 1.4rem; padding: 1rem .2rem 0; max-height: 440px; border-top: 1px dashed var(--gold-soft); scrollbar-width: thin; scrollbar-color: var(--gold-soft) transparent; }
+.buku-tamu .wishes li { display: grid; grid-template-columns: 40px 1fr; gap: .6rem; align-items: start; padding: 0 0 .9rem; border: 0; }
+.avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; font: 600 1rem/1 var(--sans); color: #fffdf8; box-shadow: 0 0 0 2px var(--cream), 0 0 0 3px var(--gold-soft); }
+.avatar.merah { background: var(--gold); }
+.avatar.hijau { background: var(--blue-deep); }
+.avatar.emas { background: #b8893a; }
+.bubble { padding: .65rem .85rem .55rem; border-radius: 4px 14px 14px 14px; background: #fff; border: 1px solid var(--line); box-shadow: 0 3px 10px rgba(40, 30, 20, .06); }
+.wish-head { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.wish-head strong { font: 600 .9rem/1.3 var(--sans); color: var(--navy); }
+.badge { padding: .12rem .5rem; border-radius: 999px; font: 600 .6rem/1.4 var(--sans); letter-spacing: .06em; text-transform: uppercase; }
+.badge.yes { background: #e5f0e8; color: var(--navy); }
+.badge.no { background: #f7e4df; color: var(--gold); }
+.bubble p { margin: .3rem 0 0; font-size: .96rem; line-height: 1.5; overflow-wrap: anywhere; }
+.bubble time { display: block; margin-top: .3rem; font: .68rem/1 var(--sans); color: var(--muted); }
+.buku-tamu .wishes .empty { display: block; padding: 1.2rem .6rem; color: var(--muted); font-style: italic; text-align: center; }
+@media (max-width: 359px) { .bt-kembang { display: none; } .bt-head { padding: 0; } .opt span { font-size: .76rem; } }
+@media (prefers-reduced-motion: reduce) { .bt-kembang { animation: none; } }
+
