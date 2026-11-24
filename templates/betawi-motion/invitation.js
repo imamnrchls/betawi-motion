@@ -117,29 +117,45 @@ const mapLink = (event) => {
   return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(pin ? event.mapPin : event.mapQuery || event.venue + ', ' + event.address)
 }
 const stamp = (time) => new Date(time).toISOString().replace(/[-:]|\.\d{3}/g, '')
-for (const event of wedding.events) {
-  const map = el('a', { class: 'pill small', href: mapLink(event), target: '_blank', rel: 'noopener', 'aria-label': 'Lokasi acara ' + event.title + ' di Google Maps' })
-  map.append(icon('pin', ''), 'Lokasi Acara')
-  const article = el('article', { class: 'event' },
-    el('h3', { text: event.title }),
-    el('hr'),
-    el('p', { class: 'when', text: event.date }),
-    el('p', { class: 'time', text: 'Pukul: ' + event.time }),
-    el('address', {}, event.venue, el('br'), event.address),
-    map,
-  )
+wedding.events.forEach((event, index) => {
+  const parts = event.date?.match(/^(\S+),\s*(\d{1,2})\s+(\S+)\s+(\d{4})$/)
+  const date = parts
+    ? el('div', { class: 'ev-date', 'aria-label': event.date },
+      el('span', { class: 'ev-day', text: parts[1], 'aria-hidden': 'true' }),
+      el('strong', { class: 'ev-num', text: parts[2], 'aria-hidden': 'true' }),
+      el('span', { class: 'ev-month', 'aria-hidden': 'true' }, parts[3], el('br'), parts[4]))
+    : el('p', { class: 'ev-date-text', text: event.date })
+  const row = (iconId, ...content) => {
+    const line = el('p', { class: 'ev-row' })
+    line.append(icon(iconId, 'ev-ico'), el('span', {}, ...content))
+    return line
+  }
+  const actions = el('div', { class: 'ev-actions' })
+  const map = el('a', { class: 'ev-btn solid', href: mapLink(event), target: '_blank', rel: 'noopener', 'aria-label': 'Lihat lokasi ' + event.title + ' di Google Maps' })
+  map.append(icon('pin', ''), 'Lihat Lokasi')
+  actions.append(map)
   const start = Date.parse(event.startsAt)
   const end = Date.parse(event.endsAt)
   if (Number.isFinite(start) && end > start) {
-    article.append(el('a', {
-      class: 'cal', target: '_blank', rel: 'noopener', text: 'Simpan ke Google Calendar',
+    const cal = el('a', {
+      class: 'ev-btn line', target: '_blank', rel: 'noopener', 'aria-label': 'Simpan ' + event.title + ' ke Google Calendar',
       href: 'https://calendar.google.com/calendar/render?' + new URLSearchParams({
         action: 'TEMPLATE', text: event.title + ' · ' + wedding.names, dates: stamp(start) + '/' + stamp(end), location: event.venue + ', ' + event.address,
       }),
-    }))
+    })
+    cal.append(icon('cal', ''), 'Simpan Tanggal')
+    actions.append(cal)
   }
-  $('events').append(article)
-}
+  if (index) $('events').append(el('span', { class: 'ev-link', 'aria-hidden': 'true', 'data-reveal': 'up' }))
+  $('events').append(el('article', { class: 'ev-card', 'data-reveal': 'rise', style: `--d:${index ? 0.1 : 0}s` },
+    el('span', { class: 'ev-crest', 'aria-hidden': 'true' }),
+    el('h3', { class: 'ev-title', text: event.title }),
+    date,
+    el('span', { class: 'pf-rule', 'aria-hidden': 'true' }),
+    row('clock', event.time),
+    row('pin', el('strong', { text: event.venue }), el('br'), event.address),
+    actions))
+})
 
 /* ---------- countdown ---------- */
 const starts = wedding.events.map(({ startsAt }) => Date.parse(startsAt)).filter(Number.isFinite)
