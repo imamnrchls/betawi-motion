@@ -74,7 +74,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
   display: grid; place-items: center; overflow: hidden;
   background: #eef2f7;
 }
-.cover-bg span { position: absolute; left: 0; right: 0; background-repeat: no-repeat; background-size: 100% auto; }
+:where(.cover-bg span) { position: absolute; left: 0; right: 0; background-repeat: no-repeat; background-size: 100% auto; }
 .cover-sky { inset: 0; background: url('./assets/sky.webp') center top / cover; }
 .cover-forest { bottom: 8%; height: 60%; background-image: url('./assets/pavilion.webp'); background-position: center bottom; opacity: .45; filter: saturate(.7); }
 .cover-flowers { bottom: -2%; height: 42%; background-image: url('./assets/flowers.webp'); background-position: center bottom; animation: rise-in 1.6s .4s var(--ease) both; }
@@ -295,16 +295,16 @@ body.opened .hero-inner { animation: title-in var(--t-title) var(--t-title-at) c
 
 /* ================================================================
    Betawi Motion theme
-   Pastel rumah kebaya scene, kembang kelapa and gigi balang trim.
+   Rumah kebaya, ondel-ondel, kembang kelapa and gigi balang trim.
    ================================================================ */
 :root {
   --paper: #fbf7f0;
   --cream: #fffdf8;
-  --navy: #4e6a3c;          /* deep sage: headings and buttons */
-  --blue: #8fad72;
-  --blue-deep: #6b8a52;
-  --gold: #c95f7f;          /* rose: names and script titles */
-  --gold-soft: #e9b4c4;
+  --navy: #184b39;
+  --blue: #36815d;
+  --blue-deep: #226044;
+  --gold: #9e332a;
+  --gold-soft: #c69a52;
   --brass: #c9a24a;
   --ink: #4a4a42;
   --muted: #7d7a6e;
@@ -341,16 +341,18 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 .caps-title { color: var(--gold); }
 .pill, .send {
   color: #fff;
-  background: linear-gradient(180deg, #93b077, #6b8a52);
-  box-shadow: 0 6px 16px rgba(78, 106, 60, .3), inset 0 1px 0 rgba(255, 255, 255, .35);
+  background: linear-gradient(180deg, var(--blue-deep), var(--navy));
+  box-shadow: 0 6px 16px rgba(24, 75, 57, .28), inset 0 1px 0 rgba(255, 255, 255, .23);
 }
-.pill:hover { box-shadow: 0 10px 22px rgba(78, 106, 60, .38), inset 0 1px 0 rgba(255, 255, 255, .35); }
+.pill:hover { box-shadow: 0 10px 22px rgba(24, 75, 57, .36), inset 0 1px 0 rgba(255, 255, 255, .23); }
 .pill:focus-visible, button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline-color: var(--gold); }
 
 /* ---------- gigi balang trim ---------- */
 .gigi {
-  position: absolute; z-index: 6; left: 0; right: 0; top: 0; height: 30px;
-  background: url('./assets/gigi-balang.webp') 0 0 / 42px 30px repeat-x;
+  position: absolute; z-index: 6; left: 0; right: 0; top: 0; height: 39px;
+  background:
+    url('./assets/gigi-balang.webp') center 7px / 45px 32px repeat-x,
+    linear-gradient(var(--navy) 5px, var(--gold-soft) 5px 7px, transparent 7px);
   filter: drop-shadow(0 2px 2px rgba(60, 70, 40, .2));
   pointer-events: none;
 }
@@ -362,14 +364,25 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 .cover { background: var(--paper); }
 .cover:not(.leaving) { overflow-y: auto; }
 .cover-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.cover-forest { bottom: 8%; height: 58%; background-image: url('./assets/pavilion.webp'); background-size: 112% auto; opacity: .55; filter: none; }
+.cover-bg .cover-forest { bottom: 4%; height: 58%; background-image: url('./assets/house.webp'); background-size: 106% auto; opacity: .68; filter: none; }
 .cover-flowers { bottom: -1%; height: 36%; }
-.cover-hang { position: absolute; top: 22px; width: 28%; aspect-ratio: 220 / 380; background: url('./assets/hanging.webp') 0 0 / contain no-repeat; animation: drop-in 1.2s .3s var(--ease) both, swing 5s 1.5s ease-in-out infinite alternate; transform-origin: 30% 0; }
+.cover-bg .cover-hang { position: absolute; top: 30px; width: 23%; aspect-ratio: 220 / 380; background: url('./assets/hanging.webp') 0 0 / contain no-repeat; animation: drop-in 1.2s .3s var(--ease) both, swing 5s 1.5s ease-in-out infinite alternate; transform-origin: 30% 0; }
 .cover-hang.l { left: -4%; }
-.cover-hang.r { right: -4%; scale: -1 1; }
+.cover-hang.r { left: auto; right: -4%; scale: -1 1; }
+.cover-kembang, .ondel { position: absolute; display: block; height: auto; }
+.cover-kembang { width: 22%; bottom: 9%; }
+.cover-kembang.l { left: -6%; }
+.cover-kembang.r { right: -6%; }
+.ondel { width: 26%; filter: drop-shadow(0 5px 5px rgba(48, 42, 24, .23)); }
+.ondel.l { left: 3%; }
+.ondel.r { right: 3%; }
+.cover-bg .ondel { bottom: 5%; animation: soft-in .9s .25s var(--ease) both; }
+.cover-bg .ondel.r { animation-delay: .4s; }
 .cover-copy { gap: clamp(.25rem, 1svh, .55rem); padding: 2.5rem 1.25rem clamp(1.25rem, 18svh, 9rem); }
-.arch { border-color: #fff; outline: 1px solid var(--gold-soft); outline-offset: 4px; box-shadow: 0 10px 26px rgba(201, 95, 127, .22); background: #f3e7dc; }
+.cover-copy .kicker { color: var(--navy); font-weight: 600; }
+.arch { border-color: #fff; outline: 1px solid var(--gold-soft); outline-offset: 4px; box-shadow: 0 10px 26px rgba(96, 64, 30, .22); background: #f3e7dc; }
 .guest { color: var(--navy); overflow-wrap: anywhere; }
+.cover .guest { max-width: min(14em, 58vw); }
 
 /* ---------- opening scene layout (units of the column width) ---------- */
 .hero { min-height: 0; }
@@ -377,7 +390,7 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 .dolly { transform-origin: 50% calc(100% - var(--w) * .3); }
 .layer i, .grow i, .bloom i, .hang i, .kembang i { display: block; width: 100%; height: 100%; background-repeat: no-repeat; background-size: 100% 100%; }
 .mount { left: 0; right: 0; bottom: calc(var(--w) * .68); aspect-ratio: 480 / 420; }
-.mount i { background-image: url('./assets/mountain.webp'); }
+.mount i { background-image: url('./assets/mountain.webp'); opacity: .46; }
 .hills { left: 0; right: 0; bottom: calc(var(--w) * .3); aspect-ratio: 480 / 300; }
 .hills i { background-image: url('./assets/hills.webp'); }
 .house { left: 0; right: 0; bottom: calc(var(--w) * .32); aspect-ratio: 480 / 340; }
@@ -400,7 +413,7 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 .kembang.l { left: calc(var(--w) * -.06); }
 .kembang.r { right: calc(var(--w) * -.06); }
 .kembang i { position: relative; transform-origin: 50% 100%; }
-.kembang i::before { content: ''; position: absolute; left: calc(50% - 3px); top: 30%; bottom: 0; width: 6px; border-radius: 3px; background: repeating-linear-gradient(#e8c766 0 18px, #9ab35c 18px 21px); }
+.kembang i::before { content: ''; position: absolute; left: calc(50% - 3px); top: 30%; bottom: 0; width: 6px; border-radius: 3px; background: repeating-linear-gradient(var(--blue-deep) 0 14px, var(--gold-soft) 14px 18px); }
 .kembang b { position: absolute; left: 0; right: 0; top: 0; aspect-ratio: 1; background: url('./assets/kembang.webp') center / contain no-repeat; }
 
 .bloom { left: -10%; right: -10%; bottom: calc(var(--w) * -.05); aspect-ratio: 480 / 340; }
@@ -410,6 +423,7 @@ body { background: #f4eee4 url('./assets/backdrop.webp') center / cover fixed; }
 .hang.l { left: -5%; }
 .hang.r { right: -5%; scale: -1 1; }
 .hero .gigi { transform-origin: 50% 0; }
+.hero .ondel { bottom: 9%; width: 23%; opacity: 0; transform-origin: center bottom; }
 
 .awan svg { position: absolute; left: var(--x); top: var(--y); width: var(--w); aspect-ratio: 120 / 50; opacity: 0; }
 .laces svg { color: #fff; filter: drop-shadow(0 0 3px rgba(190, 170, 160, .8)); }
@@ -435,6 +449,8 @@ body.opened .awan svg { animation: fade-in 1.2s var(--t-awan-at) ease-out both, 
 body.opened .robin { animation: robin-in var(--t-robin) calc(var(--t-robin-at) + var(--d)) cubic-bezier(.2, .7, .3, 1) both, hover 2.6s calc(var(--t-robin-at) + var(--t-robin) + var(--d)) ease-in-out infinite alternate; }
 body.opened .r-wing { animation: wing .16s linear infinite alternate; }
 body.opened .bloom i { animation: bloom-rise var(--t-bloom) var(--t-bloom-at) var(--ease) both, breathe 7s calc(var(--t-bloom-at) + var(--t-bloom)) ease-in-out infinite alternate; }
+body.opened .hero .ondel { animation: rise-in .85s 2.7s var(--ease) both, swing 4s 3.55s ease-in-out infinite alternate; }
+body.opened .hero .ondel.r { animation-delay: 2.95s, 3.8s; animation-direction: normal, alternate-reverse; }
 body.opened .kembang i { animation: kembang-pop var(--t-kembang) var(--t-kembang-at) cubic-bezier(.3, 1.5, .5, 1) both, sway 4.5s calc(var(--t-kembang-at) + var(--t-kembang)) ease-in-out infinite alternate; }
 body.opened .kembang b { animation: spin-in var(--t-kembang) var(--t-kembang-at) var(--ease) both, spin 22s calc(var(--t-kembang-at) + var(--t-kembang)) linear infinite; }
 body.opened .kembang.r b { animation-direction: normal, reverse; }
@@ -463,7 +479,7 @@ body.opened .hero-inner { animation: none; }
 .save-date { background: var(--blue-deep); }
 .save-photo::after { background: linear-gradient(rgba(255, 255, 255, .05), rgba(40, 55, 30, .05) 50%, rgba(40, 55, 30, .45)); }
 .countdown strong { color: var(--navy); }
-.blue-band { padding-top: 3.2rem; background: linear-gradient(rgba(143, 173, 114, .92), rgba(107, 138, 82, .96)), url('./assets/backdrop.webp') center / cover; }
+.blue-band { padding-top: 3.2rem; background: linear-gradient(rgba(34, 96, 68, .92), rgba(24, 75, 57, .96)), url('./assets/backdrop.webp') center / cover; }
 .band-lede { color: #fbf7f0; }
 .frame-card { border-color: rgba(255, 253, 248, .7); }
 .panel { border-color: var(--line); background: linear-gradient(rgba(255, 253, 248, .93), rgba(255, 253, 248, .85)), url('./assets/sky.webp') center / cover; }
@@ -498,6 +514,9 @@ body.opened .hero-inner { animation: none; }
 .closing .kembang i { animation: sway 4.5s ease-in-out infinite alternate; }
 .closing .kembang b { animation: spin 22s linear infinite; }
 .closing .kembang.r b { animation-direction: reverse; }
+.closing .ondel { width: min(24%, 140px); bottom: 2%; }
+.closing .ondel.l { left: max(3%, calc(50% - 250px)); }
+.closing .ondel.r { right: max(3%, calc(50% - 250px)); }
 .music { background: rgba(255, 253, 248, .94); color: var(--gold); border-color: var(--gold-soft); }
 .music { right: 14px; }
 @media (min-width: 520px) { .music { right: calc((100vw - var(--col)) / 2 + 14px); } }
@@ -521,6 +540,6 @@ body.opened .hero-inner { animation: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .gigi.edge:not(.in) { transform: none; }
-  .robin, .awan svg, .mist, .hero .kicker, .script-names .ch, .hero-date, .hero-cta { opacity: 1; }
+  .robin, .awan svg, .mist, .hero .ondel, .hero .kicker, .script-names .ch, .hero-date, .hero-cta { opacity: 1; }
   .robins, .birds { display: none; }
 }
