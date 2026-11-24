@@ -76,6 +76,26 @@ if (wedding.quote) {
 }
 $('invite-line').textContent = wedding.inviteLine || wedding.welcome
 $('closing-text').textContent = wedding.closing || wedding.welcome
+{
+  // "Beserta keluarga besar" line, built from each partner's parents
+  const families = wedding.couple.map(({ family }) => family?.match(/\bdari\s+(.+)$/i)?.[1]).filter(Boolean)
+  if (families.length) {
+    const line = $('closing-families')
+    line.append(el('span', { class: 'cl-with', text: 'Beserta keluarga besar' }))
+    for (const parents of families) line.append(el('span', { text: 'Keluarga ' + parents.replace(/\s+dan\s+/i, ' & ') }))
+    line.hidden = false
+  }
+  // Falling petals while the closing is on screen
+  const petals = $('petals')
+  if (!reducedMotion) {
+    for (let i = 0; i < 16; i++) {
+      petals.append(el('i', { style: `--x:${Math.round(Math.random() * 100)}%;--s:${(8 + Math.random() * 9).toFixed(1)}px;--dur:${(7 + Math.random() * 6).toFixed(1)}s;--delay:${(-Math.random() * 12).toFixed(1)}s;--drift:${Math.round(Math.random() * 80 - 40)}px;--c:${['#f2a9bb', '#e9879f', '#f7d6c4', '#f3dfb4', '#fbe3ea'][i % 5]}` }))
+    }
+    if (typeof IntersectionObserver === 'function') {
+      new IntersectionObserver(([entry]) => $('penutup').classList.toggle('live', entry.isIntersecting)).observe($('penutup'))
+    }
+  }
+}
 
 wedding.couple.forEach((partner, index) => {
   const bride = index === 0
