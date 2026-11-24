@@ -169,17 +169,77 @@ function show(index) {
   $('viewer-img').alt = photos[current].alt
   $('viewer-pos').textContent = current + 1 + ' / ' + photos.length
 }
+/* "Jendela Kenangan": a window-framed slideshow with polaroid thumbnails */
+const slides = $('slides')
+const thumbs = []
+let slide = 0
+const pad = (n) => String(n).padStart(2, '0')
+$('slide-total').textContent = pad(photos.length)
 photos.forEach((photo, index) => {
-  const link = el('a', { href: asset(photo.file), 'aria-label': 'Lihat foto: ' + photo.alt, 'data-reveal': index % 2 ? 'right' : 'left', style: `--d:${(index % 4) * 0.08}s` },
-    el('img', { src: asset(photo.file), alt: photo.alt, loading: 'lazy' }))
-  link.addEventListener('click', (event) => {
-    if (typeof viewer.showModal !== 'function' || event.metaKey || event.ctrlKey) return
-    event.preventDefault()
-    opener = link
+  const src = asset(photo.file)
+  const figure = el('figure', { class: 'slide', 'aria-hidden': 'true', style: `--src:url("${src}")` },
+    el('img', { src, alt: photo.alt, loading: index ? 'lazy' : 'eager', draggable: false }))
+  figure.addEventListener('click', () => {
+    if (typeof viewer.showModal !== 'function' || moved) return
+    opener = $('slide-next')
     show(index)
     viewer.showModal()
   })
-  $('photos').append(link)
+  slides.append(figure)
+  const thumb = el('button', { type: 'button', class: 'polaroid', 'aria-label': 'Tampilkan foto ' + (index + 1) + ': ' + photo.alt, 'data-reveal': 'drop', style: `--d:${index * 0.08}s;--tilt:${[-4, 3, -2, 4, -3, 2][index % 6]}deg` },
+    el('img', { src, alt: '', loading: 'lazy' }))
+  thumb.addEventListener('click', () => { go(index); hold() })
+  thumbs.push(thumb)
+  $('photos').append(thumb)
+})
+function go(index, dir) {
+  const next = (index + photos.length) % photos.length
+  dir = dir || (next > slide ? 1 : -1)
+  slides.querySelectorAll('.prev').forEach((node) => node.classList.remove('prev'))
+  if (next !== slide) slides.children[slide]?.classList.replace('on', 'prev')
+  slides.children[slide]?.setAttribute('aria-hidden', 'true')
+  slides.style.setProperty('--dir', dir)
+  slide = next
+  const active = slides.children[slide]
+  active.classList.remove('on')
+  void active.offsetWidth
+  active.classList.add('on')
+  active.removeAttribute('aria-hidden')
+  thumbs.forEach((thumb, i) => thumb.toggleAttribute('aria-current', i === slide))
+  $('slide-pos').textContent = pad(slide + 1)
+}
+let timer
+let visible = false
+let heldUntil = 0
+const hold = () => { heldUntil = Date.now() + 9000 }
+function tick() {
+  if (visible && Date.now() > heldUntil && !document.hidden) go(slide + 1, 1)
+}
+if (photos.length) {
+  go(0, 1)
+  $('slide-prev').addEventListener('click', () => { go(slide - 1, -1); hold() })
+  $('slide-next').addEventListener('click', () => { go(slide + 1, 1); hold() })
+  if (photos.length > 1 && !reducedMotion) {
+    timer = setInterval(tick, 4800)
+    if (typeof IntersectionObserver === 'function') {
+      new IntersectionObserver(([entry]) => { visible = entry.isIntersecting }, { threshold: .4 }).observe(slides)
+    } else visible = true
+  }
+}
+// Swipe between photos on touch screens
+let startX = null
+let moved = false
+slides.addEventListener('pointerdown', (event) => { startX = event.clientX; moved = false })
+slides.addEventListener('pointerup', (event) => {
+  if (startX === null) return
+  const dx = event.clientX - startX
+  startX = null
+  if (Math.abs(dx) > 40) {
+    moved = true
+    go(slide + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1)
+    hold()
+    setTimeout(() => { moved = false }, 50)
+  }
 })
 $('viewer-close').addEventListener('click', () => viewer.close())
 $('viewer-prev').addEventListener('click', () => show(current - 1))

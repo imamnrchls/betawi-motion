@@ -38,6 +38,8 @@ export default {
     { file: 'garden.webp', alt: 'Suasana taman tempat pasangan berfoto' },
     { file: 'ayu.webp', alt: 'Potret Ayu' },
     { file: 'raka.webp', alt: 'Potret Raka' },
+    { file: 'couple-close.webp', alt: 'Ayu dan Raka saling menatap sambil bergandengan' },
+    { file: 'garden-arch.webp', alt: 'Lengkung bunga putih di taman tempat akad' },
   ],
   closing: 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
   music: 'garden-theme.mp3',
