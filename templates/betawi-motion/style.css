@@ -970,3 +970,11 @@ body.opened .hero-inner { animation: none; }
   .cover-bg .cover-forest { height: 46%; }
 }
 @media (prefers-reduced-motion: reduce) { .cv-open::after, .cv-portrait .pf-halo { animation: none; } }
+
+
+/* Names sit on top of the portrait and overlap its lower edge */
+.profile .pf-portrait { margin-bottom: 0; }
+.pf-name { position: relative; z-index: 4; margin-top: -2.4rem; }
+.pf-first { text-shadow: 0 0 4px #fffdf8, 0 0 10px #fffdf8, 0 0 22px rgba(255, 253, 248, .95), 0 3px 24px rgba(255, 253, 248, .9); }
+.pf-full { position: relative; z-index: 4; }
+.pf-full::before { content: ''; position: absolute; z-index: -1; inset: -.15rem -.7rem; border-radius: 999px; background: rgba(251, 247, 240, .82); }
