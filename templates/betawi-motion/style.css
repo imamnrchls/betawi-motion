@@ -293,23 +293,24 @@ body.opened .hero-inner { animation: title-in var(--t-title) var(--t-title-at) c
    Rumah kebaya, ondel-ondel, kembang kelapa and gigi balang trim.
    ================================================================ */
 :root {
-  --paper: #faf5ef;
+  --paper: #fcf7eb;
   --cream: #fffdf8;
-  --navy: #344e42;
+  --navy: #394e32;
   --blue: #688273;
   --blue-deep: #4d695a;
-  --gold: #80514f;
-  --gold-soft: #d2b891;
+  --gold: #844565;
+  --gold-soft: #dacaaa;
   --brass: #c6ac83;
   --ink: #4a4a42;
   --muted: #68655e;
   --line: #e5d8cc;
-  --sage-light: #e6eee4;
-  --sage-soft: #cfddcf;
-  --rose-light: #f5e3e1;
-  --rose-soft: #e8c9c6;
-  --illustration-tone: saturate(.48) contrast(.85) brightness(1.12);
-  --ornament-tone: saturate(.42) contrast(.76) brightness(1.2);
+  --mint: #d8f7e0;
+  --sky-pastel: #cceaf0;
+  --lime-pastel: #f3fbdc;
+  --pink-pastel: #f5aed3;
+  --pink-light: #fce1ef;
+  --illustration-tone: saturate(.86) brightness(1.07);
+  --ornament-tone: saturate(.8) brightness(1.12);
   --script: 'Great Vibes', 'Snell Roundhand', cursive;
   --w: var(--col);
 
@@ -365,6 +366,9 @@ body { background: linear-gradient(rgba(250, 245, 239, .55), rgba(250, 245, 239,
 .cover { background: var(--paper); }
 .cover:not(.leaving) { overflow-y: auto; }
 .cover-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.cover-sky, .sky {
+  background-image: linear-gradient(180deg, #cceaf0a6, #f3fbdc33 65%), url('./assets/sky.webp');
+}
 .cover-bg .cover-forest { bottom: 4%; height: 58%; background-image: url('./assets/house.webp'); background-size: 106% auto; opacity: .68; }
 .cover-flowers { bottom: -1%; height: 36%; }
 .cover-bg .cover-hang { position: absolute; top: 30px; width: 23%; aspect-ratio: 220 / 380; background: url('./assets/hanging.webp') 0 0 / contain no-repeat; animation: drop-in 1.2s .3s var(--ease) both, swing 5s 1.5s ease-in-out infinite alternate; transform-origin: 30% 0; }
@@ -374,7 +378,7 @@ body { background: linear-gradient(rgba(250, 245, 239, .55), rgba(250, 245, 239,
 .cover-kembang { width: 22%; bottom: 9%; }
 .cover-kembang.l { left: -6%; }
 .cover-kembang.r { right: -6%; }
-.ondel { width: 26%; filter: var(--ornament-tone) drop-shadow(0 5px 5px rgba(48, 42, 24, .23)); }
+.ondel { width: 26%; filter: saturate(.68) brightness(1.12) contrast(.94) drop-shadow(0 5px 5px rgba(48, 42, 24, .23)); }
 .ondel.l { left: 3%; }
 .ondel.r { right: 3%; }
 .cover-bg .ondel { bottom: 5%; animation: soft-in .9s .25s var(--ease) both; }
@@ -508,7 +512,8 @@ body.opened .hero-inner { animation: none; }
 .amp-script { color: var(--blue-deep); }
 .social { background: linear-gradient(135deg, var(--gold-soft), var(--gold)); }
 .countdown strong { color: var(--navy); }
-.blue-band { padding-top: 3.2rem; background: linear-gradient(var(--sage-light), var(--sage-soft)); }
+.blue-band { padding-top: 3.2rem; background: linear-gradient(var(--sky-pastel), var(--mint)); }
+.cards-band { background: linear-gradient(var(--pink-light), var(--mint)); }
 .band-lede { color: var(--navy); }
 .frame-card { border-color: rgba(255, 253, 248, .7); }
 .panel { border-color: var(--line); background: linear-gradient(rgba(255, 253, 248, .93), rgba(255, 253, 248, .85)), url('./assets/sky.webp') center / cover; }
@@ -827,16 +832,16 @@ body.opened .hero-inner { animation: none; }
 .amplop { position: relative; width: min(78%, 250px); aspect-ratio: 25 / 16; margin: 2.6rem auto .2rem; perspective: 900px; transition: margin-top .7s cubic-bezier(.5, 0, .3, 1); }
 .gift-card.open .amplop { margin-top: clamp(6rem, 30vw, 7.4rem); }
 .amplop > span { position: absolute; inset: 0; border-radius: 10px; }
-.amplop-back { background: linear-gradient(160deg, #aa7776, #9a6968); box-shadow: 0 16px 30px rgba(80, 20, 15, .3); }
+.amplop-back { background: linear-gradient(160deg, #d589b0, #b56d96); box-shadow: 0 16px 30px rgba(80, 20, 15, .3); }
 .amplop-letter { inset: 10px 14px 18px !important; display: grid; align-content: center; justify-items: center; gap: .1rem; border-radius: 6px !important;
   background: #fffdf8; box-shadow: inset 0 0 0 1px var(--gold-soft), inset 0 0 0 4px #fffdf8, inset 0 0 0 5px rgba(170, 139, 100, .5);
   opacity: 0; transition: transform .8s .25s cubic-bezier(.3, .7, .2, 1), opacity .2s .2s; z-index: 1; }
 .amplop-letter i { font: italic .72rem/1.2 var(--body); color: var(--muted); }
 .amplop-letter b { font: 400 1.5rem/1.1 var(--script); color: var(--gold); }
-.amplop-front { z-index: 2; background: linear-gradient(170deg, #d6a9a7, #b58180); clip-path: polygon(0 28%, 50% 66%, 100% 28%, 100% 100%, 0 100%);
+.amplop-front { z-index: 2; background: linear-gradient(170deg, var(--pink-pastel), #de92ba); clip-path: polygon(0 28%, 50% 66%, 100% 28%, 100% 100%, 0 100%);
   box-shadow: inset 0 -3px 0 rgba(170, 139, 100, .9); }
 .amplop-front::before { content: ''; position: absolute; left: 0; right: 0; bottom: 10px; height: 14px; background: url('./assets/gigi-balang.svg') 0 0 / 15px 14px repeat-x; opacity: .85; }
-.amplop-flap { z-index: 3; transform-origin: 50% 0; background: linear-gradient(180deg, #e4bdba, #c99391); clip-path: polygon(0 0, 100% 0, 50% 64%);
+.amplop-flap { z-index: 3; transform-origin: 50% 0; background: linear-gradient(180deg, var(--pink-light), var(--pink-pastel)); clip-path: polygon(0 0, 100% 0, 50% 64%);
   transition: transform .7s cubic-bezier(.5, 0, .3, 1), z-index 0s .35s; }
 .amplop-flap::after { content: ''; position: absolute; inset: 0; clip-path: polygon(0 0, 100% 0, 50% 64%, 49% 62%, 97% 2%, 3% 2%, 51% 62%, 50% 64%); background: var(--gold-soft); }
 .amplop-seal { position: relative; z-index: 4; display: grid; justify-items: center; gap: .45rem; margin: -86px auto 0; padding: 0; border: 0; background: none; cursor: pointer; color: var(--gold); }
@@ -855,8 +860,8 @@ body.opened .hero-inner { animation: none; }
 @keyframes gift-in { from { opacity: 0; transform: translateY(-24px) scale(.94); } to { opacity: 1; transform: none; } }
 .gift-bank { position: relative; overflow: hidden; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "name chip" "number number" "holder copy";
   gap: .55rem .6rem; padding: 1.6rem 1.15rem 1rem; border-radius: 14px; color: var(--ink); text-align: left; box-shadow: 0 12px 24px rgba(65, 50, 42, .13), inset 0 0 0 1px rgba(255, 255, 255, .5); }
-.gift-bank.hijau { background: linear-gradient(140deg, var(--sage-light), var(--sage-soft)); }
-.gift-bank.merah { background: linear-gradient(140deg, var(--rose-light), var(--rose-soft)); }
+.gift-bank.hijau { background: linear-gradient(140deg, var(--lime-pastel), var(--mint)); }
+.gift-bank.merah { background: linear-gradient(140deg, var(--pink-light), var(--pink-pastel)); }
 .gb-trim { position: absolute; left: 0; right: 0; top: 0; height: 16px; background: url('./assets/gigi-balang.svg') 0 0 / 17px 16px repeat-x; opacity: .9; }
 .gb-name { grid-area: name; font: 600 1.05rem/1.2 var(--serif); letter-spacing: .04em; color: var(--navy); }
 .gb-chip { grid-area: chip; width: 36px; height: 27px; border-radius: 5px; background: linear-gradient(135deg, #f0dfbb, #d2b891 55%, #e7d2ab); box-shadow: inset 0 0 0 1px rgba(110, 75, 20, .4); }
@@ -999,7 +1004,7 @@ body.opened .hero-inner { animation: none; }
 .pf-full::before { content: ''; position: absolute; z-index: -1; inset: -.15rem -.7rem; border-radius: 999px; background: rgba(251, 247, 240, .82); }
 
 /* ---------- Credit ---------- */
-.credit { position: relative; padding: 2.1rem 1rem calc(4.6rem + env(safe-area-inset-bottom)); text-align: center; background: linear-gradient(180deg, var(--sage-light), var(--sage-soft)); }
+.credit { position: relative; padding: 2.1rem 1rem calc(4.6rem + env(safe-area-inset-bottom)); text-align: center; background: linear-gradient(180deg, var(--mint), var(--lime-pastel)); }
 .credit-gigi { top: 0; height: 22px; background-size: 24px 22px; }
 .credit p { margin: 0; font: 500 .7rem/1.4 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--navy); }
 .credit strong { font-weight: 600; color: var(--navy); }
