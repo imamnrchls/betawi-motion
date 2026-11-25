@@ -1,77 +1,92 @@
 ---
 name: percantik-section
-description: Redesign or "beautify" one specific section of a web page (most often a digital wedding invitation such as Betawi Motion) into a themed, animated, mobile-first design, then verify it with screenshots and commit it. Use this whenever the user asks to "percantik", "perindah", "bikin lebih cantik/menarik/estetik", "redesign", "restyle", "poles", or "ubah tampilan" a particular part of a page — cover, hero, profil mempelai, jadwal/acara, love story, galeri, amplop digital/wedding gift, ucapan/RSVP, penutup, footer/credit — even if they only name the section ("bagian gift masih jelek", "jadwalnya bikin kayak kartu adat"). Not for whole-site palette swaps or new features with no visual brief.
+description: Redesign or "beautify" one specific section of a web page (landing page, digital invitation, portfolio, event site) into a themed, animated, mobile-first design, then verify it with screenshots and commit it. Use this whenever the user asks to "percantik", "perindah", "bikin lebih cantik/menarik/estetik/elegan", "redesign", "restyle", "poles", or "ubah tampilan" a particular part of a page — hero/cover, profil, jadwal/acara, timeline/cerita, galeri, pricing, testimoni, hadiah/amplop digital, form/RSVP, penutup, footer — even if they only name the section ("bagian gift masih jelek", "jadwalnya bikin kayak kartu"). Not for whole-site palette swaps or new features with no visual brief.
 ---
 
 # Percantik Section
 
-Turn one plain section into a crafted, themed piece: a clear visual concept, ornaments taken from the page's own motif vocabulary, a choreographed scroll reveal, and nothing broken elsewhere. The user asks for this repeatedly, one section at a time, so every run should feel like part of the same family as the sections already redesigned.
+Turn one plain section into a crafted, themed piece: a clear visual concept, ornaments drawn from the page's own visual vocabulary, a choreographed scroll reveal, and nothing broken elsewhere. Users tend to ask for this repeatedly, one section at a time, so every run should feel like part of the same family as the sections already redesigned.
 
 ## 1. Pin down scope (fast)
 
-- Identify the **one** section the user means (its `<section id>`, the JS that fills it, and its CSS block). If the request is ambiguous between two sections, ask once; otherwise proceed.
-- Note any explicit wishes ("kayak amplop", "pakai timeline", "jangan pakai foto"). They override everything below.
-- Read `references/betawi-motion.md` if the project is Betawi Motion (it has `templates/betawi-motion/`). For other projects, do the discovery in step 2 yourself and follow the same principles.
+- Identify the **one** section the user means: its markup (e.g. `<section id>`), any JS that renders or drives it, and its CSS. If the request is ambiguous between two sections, ask once; otherwise proceed.
+- Note explicit wishes ("kayak amplop", "pakai timeline", "jangan pakai foto", "lebih minimalis"). They override everything below.
 
 ## 2. Learn the house style before designing
 
-Redesigns look stitched-on when they ignore what exists. Before writing anything, look at:
+Redesigns look stitched-on when they ignore what exists. Spend a few minutes on discovery before writing anything:
 
-- **Design tokens** — CSS custom properties on `:root` (colors, fonts, easing, column width). Use them; add a new token only if the palette truly lacks a role, and add it next to the others.
-- **Reveal system** — how scroll animations trigger (e.g. `[data-reveal]` + `.in` class from an IntersectionObserver). Hook into it rather than writing a new observer.
-- **Shared pieces** from earlier redesigns — frames, rules, medallions, keyframes, button styles. Reuse them so sections rhyme with each other (`git log --stat` and recent redesign commits show what exists).
-- **Content source** — where the text/data comes from (e.g. `wedding.js`). Never hard-code event content in the template; render from data, and keep optional fields optional (hide the element when the field is absent).
-- **Ornament assets** already in the repo (images, SVG symbols). Prefer them over new files.
+| Look for | Why |
+| --- | --- |
+| **Design tokens** — CSS custom properties on `:root`, Tailwind config, theme files (colors, fonts, spacing, easing, max column width) | Use them so the section matches. Add a new token only if the palette lacks a role, and put it beside the others. Choose tokens by role, not by name — names can be historical. |
+| **Animation system** — an IntersectionObserver that adds a class (`.in`, `.visible`, `.aos-animate`), a library (AOS, GSAP, Framer Motion), existing `@keyframes` | Hook into it instead of writing a second observer; reuse keyframes before inventing new ones. |
+| **Shared pieces** from sections already polished — frames, dividers, badges, medallions, button styles, icon sprite | Reuse them so sections rhyme. `git log --oneline` and recent redesign commits show what exists and how earlier ones were described. |
+| **Content source** — a data/config file, CMS, props | Never hard-code content into a template that renders from data. Keep optional fields optional: hide the element when the field is absent. |
+| **Assets & visual motif** — illustrations, ornaments, textures, fonts already in the repo; the cultural or brand theme they express | Prefer existing assets over new files, and take the concept's vocabulary from this theme. |
+| **Code conventions** — indentation, quote style, CSS organisation (one block per section? utility classes?), DOM helper functions | Match them exactly. |
+| **Build & serve** — README, `package.json` scripts, build script output folder | Needed for visual verification in step 6. |
+
+If the project has its own notes file for this skill (e.g. a `percantik-notes.md` or a section in `CLAUDE.md`), read it first. After a successful run, offer to save what you learned (tokens, reveal system, ids, motifs) there so the next run starts faster.
 
 ## 3. Choose one concept, then describe it in one sentence
 
-Pick a real-world object or ritual the section can *become*, tied to the theme — not "a nicer card". Examples that worked: schedule → arch cards with a medallion crown; gift → a red envelope that opens in 3D; love story → a vertical timeline with numbered medallions; closing → a signed thank-you letter; cover → framed portrait plus a guest card.
+Pick a real-world object, ritual, or metaphor that the section can *become*, tied to the page's theme — not "a nicer card". Patterns that work well:
 
-Write the concept as one sentence before coding (it later becomes the commit body). If the user gave a concept, use theirs.
+- schedule/event list → arched or ticket-style cards with a medallion or stamp at the top, joined by a dashed line
+- gift/donation → an envelope or box that opens on tap to reveal the details
+- story/history → a vertical timeline with numbered nodes and speech-bubble cards
+- closing/thanks → a signed letter or card with the names as a signature
+- cover/hero → a framed portrait with a personalised greeting card and a clear call to action
+- profiles/team → centred portraits in a consistent frame with a decorative halo
+- gallery → a window, film strip, or polaroid scatter with a lightbox
+- guestbook/testimonials → bubbles or notes pinned to a board
+
+Write the concept as one sentence before coding (it becomes the commit body). If the user gave a concept, use theirs.
 
 Design rules that keep quality high:
-- **Hierarchy first**: kicker (small caps) → script/serif title → body. One focal element per section.
-- **Ornament with restraint**: 2–3 motif elements per section (trim, medallion, rule, petals). Decoration is `aria-hidden` and `pointer-events: none`.
-- **Mobile column first** (≈360–480px wide). Check that text never overflows, tap targets are ≥ 42px, and desktop still looks intentional.
-- **Legibility**: text over photos/gradients needs contrast (overlay, text-shadow, or a card behind it).
-- **Accessible semantics**: section gets `aria-labelledby` pointing at its heading; interactive bits are real `<button>`s with `aria-expanded`/labels; images have meaningful `alt` (decorative ones `alt=""`).
+- **Hierarchy first**: small kicker label → display title → body. One focal element per section.
+- **Ornament with restraint**: 2–3 decorative elements per section (trim, divider, medallion, petals). Decoration is `aria-hidden` and `pointer-events: none`.
+- **Mobile first** (≈360–480px wide). Text never overflows, tap targets are ≥ 42px, and desktop still looks intentional rather than stretched.
+- **Legibility**: text over photos or gradients needs contrast (overlay, text-shadow, or a card behind it).
+- **Accessible semantics**: the section has `aria-labelledby` pointing at its heading; interactive bits are real `<button>`s with `aria-expanded`/labels; meaningful images have `alt`, decorative ones `alt=""`; user data is inserted as text, never as raw HTML.
 
 ## 4. Choreograph the motion
 
-Every redesign so far ships with a reveal sequence; it is part of the look.
+A reveal sequence is part of the look.
 
-- Container reveals via the existing system (`data-reveal="rise|up|zoom|blur|…"`, stagger with a `--d` delay variable).
-- Children animate **after** the container gets `.in`, with staggered delays (≈ .2s → .8s): e.g. crest spins in, number pops, rule draws, text rises.
-- Loops (slow spin, drift, shine) only on small ornaments, and pause them when off-screen if they are costly.
+- The container reveals via the existing system (rise, fade-up, zoom, blur…), staggered with a delay variable when there are several items.
+- Children animate **after** the container is revealed, with staggered delays (≈ .2s → .8s): e.g. badge spins in, number pops, divider draws, text rises.
+- Loops (slow spin, drift, shine) only on small ornaments; pause costly ones when off-screen.
 - **Always** add a `@media (prefers-reduced-motion: reduce)` rule that disables new infinite animations and shows the end state.
-- Prefer `transform`/`opacity`; avoid animating layout properties.
+- Animate `transform` and `opacity`, not layout properties.
 
 ## 5. Implement surgically
 
-- Touch only the target section's markup, its render function, and a **new, labelled CSS block** (e.g. `/* ---------- Jadwal acara ---------- */`) appended near the other section blocks. Give classes a short section prefix (`ev-`, `tl-`, `gift-`) so nothing leaks.
-- Remove CSS/markup the old version used only if nothing else references it (grep first).
-- Match the file's existing code style (indentation, quote style, one-line vs multi-line rules, helper functions like `el()`/`icon()`).
-- New SVG icons go into the existing sprite as `<symbol>` entries.
+- Touch only the target section's markup, its render/behaviour code, and a **new, labelled CSS block** (e.g. `/* ---------- Schedule ---------- */`) placed with the other section styles. Give classes a short section prefix (`ev-`, `tl-`, `gift-`) so nothing leaks into other sections.
+- Remove old CSS/markup only if nothing else references it (grep first).
+- New icons go into the existing icon sprite or icon set.
+- If the content model changes (a new optional field), update the sample data and any docs that list the fields.
 
 ## 6. Verify visually — don't skip
 
-Build the site, serve it, and screenshot the section on mobile and desktop with the bundled script:
+Build and serve the site, then screenshot the section on mobile and desktop with the bundled script (needs Node and Playwright):
 
 ```bash
-node .claude/skills/percantik-section/scripts/shot.mjs --url http://localhost:8000/ --section "#jadwal" --out /tmp/shots/after --click "#open-invitation"
+node <skill-dir>/scripts/shot.mjs --url http://localhost:8000/ --section "#schedule" --out /tmp/shots/after
 ```
 
-(Run it once **before** editing with `--out …/before` so you can compare.) The script forces all `[data-reveal]` elements to their final state, scrolls the section into view, waits for animations, and writes `mobile.png` and `desktop.png`. Open the images and check: overflow, overlap with neighbouring sections, contrast, alignment, empty optional fields, and that the concept actually reads. Fix and re-shoot until it looks right. Also check the browser console for errors.
+Options: `--click "<selector>"` taps something first (e.g. a cover's open button or a cookie banner), `--wait <ms>` waits longer for animations, `--full` captures the whole page instead of just the section.
 
-Show the user the after screenshot(s) (or before/after) when reporting.
+Run it once **before** editing (`--out /tmp/shots/before`) so you can compare. The script reveals the section, forces any `[data-reveal]` elements to their `.in` state (adapt the selector in the script if the project uses another convention), waits, and writes `mobile.png` and `desktop.png`, reporting console errors and horizontal overflow. Look at the images and check overflow, overlap with neighbouring sections, contrast, alignment, empty optional fields, and whether the concept actually reads. Fix and re-shoot until it looks right.
 
-## 7. Commit like the earlier redesigns
+If Playwright isn't available, say so and describe what you checked instead — don't claim a visual check you didn't do.
 
-- Branch per the session's rules; one commit per section.
-- Subject: imperative, names the section and the concept — `Redesign the schedule as Betawi arch cards`.
-- Body: one paragraph describing what the viewer sees, in order, then the motion ("Cards rise in, the crest spins in, the date pops and the rule draws."). No file lists.
-- If the content model changed (new optional field such as `story[].photo`), mention it in the body and in the README's field list.
+## 7. Commit
+
+- Follow the repository's branch rules; one commit per section.
+- Subject: imperative, names the section and the concept — e.g. `Redesign the schedule as arch cards`.
+- Body: one paragraph describing what a visitor sees, in order, then the motion ("Cards rise in, the badge spins in, the date pops and the divider draws."). No file lists.
 
 ## Report back
 
-Reply in the user's language: the concept in one line, what changed visually, the screenshot(s), anything you couldn't do or chose not to change, and what you'd suggest polishing next.
+Reply in the user's language: the concept in one line, what changed visually, the after (or before/after) screenshots, anything you couldn't do or chose not to change, and a suggestion for which section to polish next.

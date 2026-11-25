@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Screenshot one section of a page on mobile and desktop, with scroll reveals forced to their end state.
-// Usage: node shot.mjs --url http://localhost:8000/ --section "#jadwal" --out /tmp/shots/after [--click "#open-invitation"] [--wait 2500] [--full]
+// Usage: node shot.mjs --url http://localhost:8000/ --section "#schedule" --out /tmp/shots/after [--click "#open-button"] [--wait 2500] [--full]
 import { mkdir } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 
