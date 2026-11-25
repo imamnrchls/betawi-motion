@@ -984,4 +984,7 @@ body.opened .hero-inner { animation: none; }
 .credit-gigi { top: 0; height: 22px; background-size: 24px 22px; }
 .credit p { margin: 0; font: 500 .7rem/1.4 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 250, 240, .75); }
 .credit strong { font-weight: 600; color: #f3dfb4; }
+.credit .credit-by { margin-top: .5rem; }
+.credit a { font-weight: 600; color: #f3dfb4; text-decoration: none; border-bottom: 1px solid rgba(243, 223, 180, .4); }
+.credit a:hover { border-color: #f3dfb4; }
 
