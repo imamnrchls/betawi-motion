@@ -89,7 +89,7 @@ $('closing-text').textContent = wedding.closing || wedding.welcome
   const petals = $('petals')
   if (!reducedMotion) {
     for (let i = 0; i < 16; i++) {
-      petals.append(el('i', { style: `--x:${Math.round(Math.random() * 100)}%;--s:${(8 + Math.random() * 9).toFixed(1)}px;--dur:${(7 + Math.random() * 6).toFixed(1)}s;--delay:${(-Math.random() * 12).toFixed(1)}s;--drift:${Math.round(Math.random() * 80 - 40)}px;--c:${['#f5aed3', '#faacbf', '#fcc4c2', '#ffeabb', '#fce1ef'][i % 5]}` }))
+      petals.append(el('i', { style: `--x:${Math.round(Math.random() * 100)}%;--s:${(8 + Math.random() * 9).toFixed(1)}px;--dur:${(7 + Math.random() * 6).toFixed(1)}s;--delay:${(-Math.random() * 12).toFixed(1)}s;--drift:${Math.round(Math.random() * 80 - 40)}px;--c:${['#e8a29a', '#d9a39b', '#f0c4b5', '#efddc3', '#fbe8d6'][i % 5]}` }))
     }
     if (typeof IntersectionObserver === 'function') {
       new IntersectionObserver(([entry]) => $('penutup').classList.toggle('live', entry.isIntersecting)).observe($('penutup'))
